@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
 import java.awt.Color;
+import java.util.List;
 
 /**
  * A ball that can break bricks.
@@ -30,6 +31,7 @@ public class Ball extends SmoothMover
         checkHitPaddle();
         checkHitBrick();
         checkOutOfBounds();
+        checkBricksLeft();
     }
     
     private void checkHitPaddle()
@@ -63,16 +65,17 @@ public class Ball extends SmoothMover
         if(exactX >= getWorld().getWidth()) {
             bounce(true, false);
         }
-        if(exactX < 0) {
+        if(exactX <= DIAMETER) {
             bounce(true, false);
         }
         if(exactY >= getWorld().getHeight()) {
             bounce(false, true);
         }
-        if(exactY < 0) {
+        if(exactY < DIAMETER) {
             // lose!
         }
         setLocation((int) exactX, (int) exactY);
+        System.out.println(exactX + " " + exactY);
     }
 
     /**
@@ -86,22 +89,22 @@ public class Ball extends SmoothMover
             brick.hit();
             
             // going down
-            if (getObjectsAtOffset(0, -DIAMETER, Brick.class) != null)
+            if (getObjectsAtOffset(0, -DIAMETER-1, Brick.class) != null)
             {
                 bounce(false, true);
             }
             // going left
-            else if (getObjectsAtOffset(-DIAMETER, 0, Brick.class) != null)
+            else if (getObjectsAtOffset(-DIAMETER-1, 0, Brick.class) != null)
             {
                 bounce(true, false);
             }
             // going up
-            else if (getObjectsAtOffset(0, DIAMETER, Brick.class) != null)
+            else if (getObjectsAtOffset(0, DIAMETER+1, Brick.class) != null)
             {
                 bounce(false, true);
             }
             // going right
-            else if (getObjectsAtOffset(DIAMETER, 0, Brick.class) != null)
+            else if (getObjectsAtOffset(DIAMETER+1, 0, Brick.class) != null)
             {
                 bounce(true, false);
             }
@@ -116,7 +119,18 @@ public class Ball extends SmoothMover
     private void checkOutOfBounds()
     {
         Jail jail = (Jail) getWorld();
-        if (this.getExactY() >= jail.getPaddle().getExactY()+DIAMETER*3)
+        if (this.getExactY() >= jail.getHeight())
+        {
+            jail.gameOver();
+            getWorld().removeObject(this);
+        }
+    }
+
+    private void checkBricksLeft()
+    {
+        Jail jail = (Jail) getWorld();
+        List<Brick> bricks = jail.getObjects(Brick.class);
+        if (bricks != null && bricks.size() == 0)
         {
             jail.gameOver();
             getWorld().removeObject(this);

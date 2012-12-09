@@ -10,14 +10,11 @@ import java.util.List;
  */
 public class Jail extends World
 {
-    private static final int BRICK_ROWS = 8;
-    private static final int BRICK_COLS = 14;
     private static final Brick[] BRICK_COLUMN = new Brick[] {
-        new Brick(Color.RED, 7), new Brick(Color.RED, 7),
-        new Brick(Color.ORANGE, 5), new Brick(Color.ORANGE, 5),
-        new Brick(Color.GREEN, 3), new Brick(Color.GREEN, 3),
         new Brick(Color.YELLOW, 1), new Brick(Color.YELLOW, 1),
     };
+    private static final int BRICK_ROWS = BRICK_COLUMN.length;
+    private static final int BRICK_COLS = 2;
 
     private final Counter scoreCounter;
     private final Paddle paddle;
