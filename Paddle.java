@@ -33,7 +33,6 @@ public class Paddle extends SmoothMover
     {
         checkKeys();
         move();
-        checkCollision();
     }
 
     private void checkKeys()
@@ -55,17 +54,5 @@ public class Paddle extends SmoothMover
     {
         Vector drift = new Vector(getRotation(), 0.3);
         addForce(drift);
-    }
-
-    private void checkCollision()
-    {
-        Ball ball = (Ball) getOneIntersectingObject(Ball.class);
-        if (ball != null)
-        {
-            Vector force = ball.getMovement().copy();
-            force.revertVertical(); // why does this work vertical instead of horizontal?
-            ball.addForce(force.copy());
-            ball.addForce(force.copy());
-        }
     }
 }

@@ -49,6 +49,10 @@ public class Jail extends World
         
         // Paddle should act first to hit ball before going out of bounds
         setActOrder(Paddle.class);
+        
+        Vector v = new Vector(30, 2);
+        v.revertHorizontal();
+        System.out.println(v.getDirection() + " " + v.getLength());
     }
 
     private void addBricks(int rows, int cols)

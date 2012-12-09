@@ -27,10 +27,57 @@ public class Ball extends SmoothMover
     public void act()
     {
         move();
+        checkHitPaddle();
         checkHitBrick();
         checkOutOfBounds();
     }
     
+    private void checkHitPaddle()
+    {
+        Paddle paddle = (Paddle) getOneIntersectingObject(Paddle.class);
+        if (paddle != null)
+        {
+            bounce(false, true);
+        }
+    }
+
+    private void bounce(boolean horizontal, boolean vertical)
+    {
+        Vector force = getMovement().copy();
+
+        if (vertical)
+        {
+            force.revertVertical();
+        }
+        if (horizontal)
+        {
+            force.revertHorizontal();
+        }
+            
+        force.scale(0.75);
+        addForce(force.copy());
+        addForce(force.copy());
+    }
+
+    public void move()
+    {
+        double exactX = getExactX() + getMovement().getX();
+        double exactY = getExactY() + getMovement().getY();
+        if(exactX >= getWorld().getWidth()) {
+            bounce(true, false);
+        }
+        if(exactX < 0) {
+            bounce(true, false);
+        }
+        if(exactY >= getWorld().getHeight()) {
+            bounce(false, true);
+        }
+        if(exactY < 0) {
+            // lose!
+        }
+        setLocation((int) exactX, (int) exactY);
+    }
+
     /**
      * Check whether we have hit a brick.
      */
@@ -40,6 +87,7 @@ public class Ball extends SmoothMover
         if (brick != null)
         {
             brick.hit();
+            bounce(false, true);
         }
     }
 
