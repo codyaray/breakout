@@ -46,6 +46,9 @@ public class Jail extends World
 
         scoreCounter = new Counter("Score: ");
         addObject(scoreCounter, 60, 380);
+        
+        // Paddle should act first to hit ball before going out of bounds
+        setActOrder(Paddle.class);
     }
 
     private void addBricks(int rows, int cols)

@@ -41,17 +41,17 @@ public class Paddle extends SmoothMover
         if (Greenfoot.isKeyDown("left"))
         {
             setRotation(LEFT);
-            ignite();
+            addForce();
         }
         
         if (Greenfoot.isKeyDown("right"))
         {
             setRotation(RIGHT);
-            ignite();
+            addForce();
         }
     }
 
-    private void ignite()
+    private void addForce()
     {
         Vector drift = new Vector(getRotation(), 0.3);
         addForce(drift);
@@ -62,6 +62,10 @@ public class Paddle extends SmoothMover
         Ball ball = (Ball) getOneIntersectingObject(Ball.class);
         if (ball != null)
         {
+            Vector force = ball.getMovement().copy();
+            force.revertVertical(); // why does this work vertical instead of horizontal?
+            ball.addForce(force.copy());
+            ball.addForce(force.copy());
         }
     }
 }

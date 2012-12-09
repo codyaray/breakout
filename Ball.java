@@ -27,14 +27,14 @@ public class Ball extends SmoothMover
     public void act()
     {
         move();
-        checkBrickHit();
+        checkHitBrick();
         checkOutOfBounds();
     }
     
     /**
      * Check whether we have hit a brick.
      */
-    private void checkBrickHit()
+    private void checkHitBrick()
     {
         Brick brick = (Brick) getOneIntersectingObject(Brick.class);
         if (brick != null)
@@ -46,7 +46,7 @@ public class Ball extends SmoothMover
     private void checkOutOfBounds()
     {
         Jail jail = (Jail) getWorld();
-        if (this.getExactY() >= jail.getPaddle().getExactY())
+        if (this.getExactY() >= jail.getPaddle().getExactY()+DIAMETER*3)
         {
             jail.gameOver();
             getWorld().removeObject(this);
