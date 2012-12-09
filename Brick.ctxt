@@ -13,5 +13,5 @@ comment3.target=void\ hit()
 comment3.text=\n\ A\ hit\ breaks\ the\ brick,\ removing\ it\ from\ the\ jail\n\ and\ adding\ its\ value\ to\ the\ user's\ score.\n
 comment4.params=
 comment4.target=int\ getValue()
-comment4.text=\n\ @return\ the\ value\ to\ be\ added\ to\ the\ user's\ score\ when\ broken.\n
+comment4.text=\n\ Returns\ the\ value\ to\ be\ added\ to\ the\ user's\ score\ when\ broken.\n\ @return\ the\ brick's\ value\ \n
 numComments=5

@@ -11,36 +11,39 @@ import java.awt.Graphics;
  */
 public class Counter extends Actor
 {
-    private static final Color textColor = new Color(255, 180, 150);
-    
+    private final String prefix;
+    private final Color textColor;
+
+    // the counter seeks to keep value in sync with target
     private int value = 0;
     private int target = 0;
-    private String text;
-    private int stringLength;
-
-    public Counter()
-    {
-        this("");
-    }
 
     public Counter(String prefix)
     {
-        text = prefix;
-        stringLength = (text.length() + 2) * 10;
+        this(new Color(255, 180, 150), prefix);
+    }
 
-        setImage(new GreenfootImage(stringLength, 16));
-        GreenfootImage image = getImage();
+    public Counter(Color textColor, String prefix)
+    {
+        this.textColor = textColor;
+        this.prefix = prefix;
+
+        int prefixLength = (prefix.length() + 2) * 10;
+        GreenfootImage image = new GreenfootImage(prefixLength, 16);
         image.setColor(textColor);
+        setImage(image);
 
         updateImage();
     }
-    
+
     public void act() {
-        if(value < target) {
+        if (value < target)
+        {
             value++;
             updateImage();
         }
-        else if(value > target) {
+        else if (value > target)
+        {
             value--;
             updateImage();
         }
@@ -57,12 +60,12 @@ public class Counter extends Actor
     }
 
     /**
-     * Make the image
+     * Update the counter image
      */
     private void updateImage()
     {
         GreenfootImage image = getImage();
         image.clear();
-        image.drawString(text + value, 1, 12);
+        image.drawString(prefix + value, 1, 12);
     }
 }

@@ -33,10 +33,15 @@ public class Ball extends Actor
     public void act()
     {
         move();
-        checkHitPaddle();
-        checkHitBrick();
+        bounceOffPaddle();
+        breakBrickAndBounce();
+        checkBricksLeft();
     }
-    
+
+    /**
+     * The ball moves at a constant speed, changing directions when
+     * it hits a wall or passes the paddle.
+     */
     public void move()
     {
         // hit top
@@ -54,7 +59,7 @@ public class Ball extends Actor
         {
             dx = -dx;
         }
-        // hit bottom
+        // hit bottom (passes the paddle)
         if (getY() == getWorld().getHeight()-1)
         {
             Jail jail = (Jail) getWorld();
@@ -64,7 +69,10 @@ public class Ball extends Actor
         setLocation(getX()+dx, getY()+dy);
     }
 
-    private void checkHitPaddle()
+    /**
+     * Bounce off the paddle when hit
+     */
+    private void bounceOffPaddle()
     {
         Paddle paddle = (Paddle) getOneIntersectingObject(Paddle.class);
         if (paddle != null)
@@ -74,9 +82,9 @@ public class Ball extends Actor
     }
 
     /**
-     * Check whether we have hit a brick.
+     * Break brick when hit and bounce off.
      */
-    private void checkHitBrick()
+    private void breakBrickAndBounce()
     {
         Brick brick = (Brick) getOneIntersectingObject(Brick.class);
         if (brick != null)
@@ -86,4 +94,17 @@ public class Ball extends Actor
         }
     }
 
+    /**
+     * Check whether we have bricks left or end the game.
+     */
+    private void checkBricksLeft()
+    {
+        List<Brick> bricks = getWorld().getObjects(Brick.class);
+        if (bricks != null && bricks.size() == 0)
+        {
+            Jail jail = (Jail) getWorld();
+            jail.gameOver();
+            jail.removeObject(this);
+        }
+    }
 }

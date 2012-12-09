@@ -12,17 +12,10 @@ import java.util.Calendar;
  */
 public class ScoreBoard extends Actor
 {
-    public static final float FONT_SIZE = 48.0f;
     public static final int WIDTH = 400;
     public static final int HEIGHT = 300;
-    
-    /**
-     * Create a score board with dummy result for testing.
-     */
-    public ScoreBoard()
-    {
-        this(100);
-    }
+    public static final int BORDER_WIDTH = 5;
+    public static final float FONT_SIZE = 48.0f;
 
     /**
      * Create a score board for the final result.
@@ -39,16 +32,24 @@ public class ScoreBoard extends Actor
     {
         GreenfootImage image = new GreenfootImage(WIDTH, HEIGHT);
 
-        image.setColor(new Color(255,255,255, 128));
+        // setup border
+        image.setColor(new Color(255, 255, 255, 128));
         image.fillRect(0, 0, WIDTH, HEIGHT);
+
+        // setup panel
         image.setColor(new Color(0, 0, 0, 128));
-        image.fillRect(5, 5, WIDTH-10, HEIGHT-10);
+        image.fillRect(BORDER_WIDTH, BORDER_WIDTH, WIDTH-2*BORDER_WIDTH, HEIGHT-2*BORDER_WIDTH);
+
+        // setup font
         Font font = image.getFont();
         font = font.deriveFont(FONT_SIZE);
         image.setFont(font);
+
+        // write text
         image.setColor(Color.WHITE);
         image.drawString(title, 60, 100);
         image.drawString(prefix + score, 60, 200);
+
         setImage(image);
     }
 }

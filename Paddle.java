@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.awt.Color;
 
 /**
- * What you control to hit the ball with.
+ * What you move to hit the ball.
  * 
  * @author Cody A. Ray
  * @version December 8, 2012
@@ -12,7 +12,7 @@ public class Paddle extends Actor
     private static final int LENGTH = 100;
     private static final int HEIGHT = 5;
 
-    private static final int DISTANCE = 5;
+    private static final int MOVE_DISTANCE = 5;
 
     /**
      * Create a new paddle.
@@ -37,12 +37,12 @@ public class Paddle extends Actor
     {
         if (Greenfoot.isKeyDown("left"))
         {
-            setLocation(getX()-DISTANCE, getY());
+            setLocation(getX() - MOVE_DISTANCE, getY());
         }
         
         if (Greenfoot.isKeyDown("right"))
         {
-            setLocation(getX()+DISTANCE, getY());
+            setLocation(getX() + MOVE_DISTANCE, getY());
         }
     }
 }

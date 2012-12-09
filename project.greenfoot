@@ -1,5 +1,5 @@
 #Greenfoot properties
-#Sat Dec 08 22:33:15 CST 2012
+#Sat Dec 08 23:59:26 CST 2012
 target2.width=90
 target8.name=Vector
 target5.naviview.expanded=true
@@ -53,7 +53,7 @@ target5.height=50
 target8.naviview.expanded=true
 dependency13.type=UsesDependency
 target7.editor.width=900
-class.Paddle.superclass=SmoothMover
+class.Paddle.superclass=greenfoot.Actor
 target2.type=ClassTarget
 target4.editor.y=42
 dependency1.to=Paddle
@@ -109,7 +109,7 @@ target3.x=110
 class.SmoothMover.superclass=greenfoot.Actor
 dependency7.to=Jail
 dependency12.from=Jail
-class.Ball.superclass=SmoothMover
+class.Ball.superclass=greenfoot.Actor
 target3.height=50
 dependency8.type=UsesDependency
 target1.y=70
@@ -138,7 +138,7 @@ dependency1.type=UsesDependency
 target4.type=ClassTarget
 target8.width=80
 dependency8.to=Jail
-simulation.speed=57
+simulation.speed=55
 target7.height=50
 dependency5.type=UsesDependency
 target8.type=ClassTarget

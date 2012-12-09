@@ -3,10 +3,10 @@ import java.awt.Color;
 
 /**
  * A brick sits there looking colorful until the ball breaks it,
- * earning the value of the brick to be added to the user's score.
+ * adding the value of the brick to the user's score.
  * 
  * @author Cody A. Ray 
- * @version December 12, 2012
+ * @version December 8, 2012
  */
 public class Brick extends Actor
 {
@@ -68,7 +68,8 @@ public class Brick extends Actor
     }
 
     /**
-     * @return the value to be added to the user's score when broken.
+     * Returns the value to be added to the user's score when broken.
+     * @return the brick's value 
      */
     public int getValue()
     {
