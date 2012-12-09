@@ -134,4 +134,9 @@ public abstract class SmoothMover extends Actor
     {
         return movement;
     }
+
+    public void setMovement(Vector movement)
+    {
+        this.movement = movement;
+    }
 }

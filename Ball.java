@@ -53,10 +53,7 @@ public class Ball extends SmoothMover
         {
             force.revertHorizontal();
         }
-            
-        force.scale(0.75);
-        addForce(force.copy());
-        addForce(force.copy());
+        setMovement(force);
     }
 
     public void move()
@@ -87,7 +84,32 @@ public class Ball extends SmoothMover
         if (brick != null)
         {
             brick.hit();
-            bounce(false, true);
+            
+            // going down
+            if (getObjectsAtOffset(0, -DIAMETER, Brick.class) != null)
+            {
+                bounce(false, true);
+            }
+            // going left
+            else if (getObjectsAtOffset(-DIAMETER, 0, Brick.class) != null)
+            {
+                bounce(true, false);
+            }
+            // going up
+            else if (getObjectsAtOffset(0, DIAMETER, Brick.class) != null)
+            {
+                bounce(false, true);
+            }
+            // going right
+            else if (getObjectsAtOffset(DIAMETER, 0, Brick.class) != null)
+            {
+                bounce(true, false);
+            }
+            // is this possible?
+            else
+            {
+                throw new RuntimeException("Is this possible?");
+            }
         }
     }
 
