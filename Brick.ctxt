@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=color\ value
+comment0.target=Brick(java.awt.Color,\ int)
+comment0.text=\n\ Create\ a\ new\ brick\ with\ the\ given\ color\ and\ value\n\ (points\ added\ to\ the\ user's\ score\ when\ broken).\n\ \n\ @param\ color\ the\ color\ of\ the\ brick\n\ @param\ value\ the\ value\ to\ the\ user's\ score\n
+comment1.params=brick
+comment1.target=Brick(Brick)
+comment1.text=\n\ Copy\ constructor\ creates\ a\ new\ brick\ with\ the\n\ same\ color\ and\ value\ as\ the\ given\ one.\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ Bricks\ don't\ do\ nothin'\n
+comment3.params=
+comment3.target=void\ hit()
+comment3.text=\n\ A\ hit\ breaks\ the\ brick,\ removing\ it\ from\ the\ jail\n\ and\ adding\ its\ value\ to\ the\ user's\ score.\n
+comment4.params=
+comment4.target=int\ getValue()
+comment4.text=\n\ @return\ the\ value\ to\ be\ added\ to\ the\ user's\ score\ when\ broken.\n
+numComments=5

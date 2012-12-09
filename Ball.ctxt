@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=velocity
+comment0.target=Ball(Vector)
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\n\ The\ ball\ will\ break\ bricks\ if\ it\ hits\ them.\n
+comment2.params=
+comment2.target=void\ checkBrickHit()
+comment2.text=\n\ Check\ whether\ we\ have\ hit\ a\ brick.\n
+comment3.params=
+comment3.target=void\ checkOutOfBounds()
+numComments=4
