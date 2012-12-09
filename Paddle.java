@@ -2,18 +2,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.awt.Color;
 
 /**
- * Write a description of class Paddle here.
+ * What you control to hit the ball with.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Cody A. Ray
+ * @version December 8, 2012
  */
-public class Paddle extends SmoothMover
+public class Paddle extends Actor
 {
     private static final int LENGTH = 100;
     private static final int HEIGHT = 5;
 
-    private static final int LEFT = 180;
-    private static final int RIGHT = 0;
+    private static final int DISTANCE = 5;
 
     /**
      * Create a new paddle.
@@ -27,32 +26,23 @@ public class Paddle extends SmoothMover
     }
 
     /**
-     * Move left and right when the keys are pressed and block the ball from passing
+     * Move left and right when the keys are pressed
      */
     public void act() 
     {
         checkKeys();
-        move();
     }
 
     private void checkKeys()
     {
         if (Greenfoot.isKeyDown("left"))
         {
-            setRotation(LEFT);
-            addForce();
+            setLocation(getX()-DISTANCE, getY());
         }
         
         if (Greenfoot.isKeyDown("right"))
         {
-            setRotation(RIGHT);
-            addForce();
+            setLocation(getX()+DISTANCE, getY());
         }
-    }
-
-    private void addForce()
-    {
-        Vector drift = new Vector(getRotation(), 0.3);
-        addForce(drift);
     }
 }

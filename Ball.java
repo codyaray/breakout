@@ -8,13 +8,18 @@ import java.util.List;
  * @author Cody A. Ray
  * @version December 12, 2012
  */
-public class Ball extends SmoothMover
+public class Ball extends Actor
 {
     private static final int DIAMETER = 15;
 
-    public Ball(Vector velocity)
+    // "velocity": change in x and y each tick
+    private int dx;
+    private int dy;
+
+    public Ball(int dx, int dy)
     {
-        super(velocity);
+        this.dx = dx;
+        this.dy = dy;
 
         GreenfootImage image = new GreenfootImage(DIAMETER,DIAMETER);
         image.setColor(Color.RED);
@@ -30,52 +35,42 @@ public class Ball extends SmoothMover
         move();
         checkHitPaddle();
         checkHitBrick();
-        checkOutOfBounds();
-        checkBricksLeft();
     }
     
+    public void move()
+    {
+        // hit top
+        if (getY() == 0)
+        {
+            dy = -dy;
+        }
+        // hit left
+        if (getX() == 0)
+        {
+            dx = -dx;
+        }
+        // hit right
+        if (getX() == getWorld().getWidth()-1)
+        {
+            dx = -dx;
+        }
+        // hit bottom
+        if (getY() == getWorld().getHeight()-1)
+        {
+            Jail jail = (Jail) getWorld();
+            jail.gameOver();
+        }
+
+        setLocation(getX()+dx, getY()+dy);
+    }
+
     private void checkHitPaddle()
     {
         Paddle paddle = (Paddle) getOneIntersectingObject(Paddle.class);
         if (paddle != null)
         {
-            bounce(false, true);
+            dy = -dy;
         }
-    }
-
-    private void bounce(boolean horizontal, boolean vertical)
-    {
-        Vector force = getMovement().copy();
-
-        if (vertical)
-        {
-            force.revertVertical();
-        }
-        if (horizontal)
-        {
-            force.revertHorizontal();
-        }
-        setMovement(force);
-    }
-
-    public void move()
-    {
-        double exactX = getExactX() + getMovement().getX();
-        double exactY = getExactY() + getMovement().getY();
-        if(exactX >= getWorld().getWidth()) {
-            bounce(true, false);
-        }
-        if(exactX <= DIAMETER) {
-            bounce(true, false);
-        }
-        if(exactY >= getWorld().getHeight()) {
-            bounce(false, true);
-        }
-        if(exactY < DIAMETER) {
-            // lose!
-        }
-        setLocation((int) exactX, (int) exactY);
-        System.out.println(exactX + " " + exactY);
     }
 
     /**
@@ -87,53 +82,8 @@ public class Ball extends SmoothMover
         if (brick != null)
         {
             brick.hit();
-            
-            // going down
-            if (getObjectsAtOffset(0, -DIAMETER-1, Brick.class) != null)
-            {
-                bounce(false, true);
-            }
-            // going left
-            else if (getObjectsAtOffset(-DIAMETER-1, 0, Brick.class) != null)
-            {
-                bounce(true, false);
-            }
-            // going up
-            else if (getObjectsAtOffset(0, DIAMETER+1, Brick.class) != null)
-            {
-                bounce(false, true);
-            }
-            // going right
-            else if (getObjectsAtOffset(DIAMETER+1, 0, Brick.class) != null)
-            {
-                bounce(true, false);
-            }
-            // is this possible?
-            else
-            {
-                throw new RuntimeException("Is this possible?");
-            }
+            dy = -dy;
         }
     }
 
-    private void checkOutOfBounds()
-    {
-        Jail jail = (Jail) getWorld();
-        if (this.getExactY() >= jail.getHeight())
-        {
-            jail.gameOver();
-            getWorld().removeObject(this);
-        }
-    }
-
-    private void checkBricksLeft()
-    {
-        Jail jail = (Jail) getWorld();
-        List<Brick> bricks = jail.getObjects(Brick.class);
-        if (bricks != null && bricks.size() == 0)
-        {
-            jail.gameOver();
-            getWorld().removeObject(this);
-        }
-    }
 }

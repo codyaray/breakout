@@ -3,21 +3,25 @@ import java.awt.Color;
 import java.util.List;
 
 /**
- * Write a description of class PongWorld here.
+ * Breakout of the Jail.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Cody A. Ray
+ * @version December 8, 2012
  */
 public class Jail extends World
 {
     private static final Brick[] BRICK_COLUMN = new Brick[] {
+        new Brick(Color.RED, 7), new Brick(Color.RED, 7),
+        new Brick(Color.ORANGE, 5), new Brick(Color.ORANGE, 5),
+        new Brick(Color.GREEN, 3), new Brick(Color.GREEN, 3),
         new Brick(Color.YELLOW, 1), new Brick(Color.YELLOW, 1),
     };
     private static final int BRICK_ROWS = BRICK_COLUMN.length;
-    private static final int BRICK_COLS = 2;
+    private static final int BRICK_COLS = 14;
 
+    private static final int BALL_MAX_SPEED = 3;
+    
     private final Counter scoreCounter;
-    private final Paddle paddle;
 
     /**
      * Create a new Jail to Breakout.
@@ -31,14 +35,11 @@ public class Jail extends World
         background.fill();
 
         Paddle paddle = new Paddle();
-        this.paddle = paddle;
         addObject(paddle, getWidth()/2, getHeight()*7/8);
 
         addBricks(BRICK_ROWS, BRICK_COLS);
 
-        int min = 30, max = 150;
-        int direction = min + Greenfoot.getRandomNumber(max - min);
-        Ball ball = new Ball(new Vector(direction, 2));
+        Ball ball = new Ball(2, 2);
         addObject(ball, getWidth()/2, getHeight()/2);
 
         scoreCounter = new Counter("Score: ");
@@ -46,10 +47,6 @@ public class Jail extends World
         
         // Paddle should act first to hit ball before going out of bounds
         setActOrder(Paddle.class);
-        
-        Vector v = new Vector(30, 2);
-        v.revertHorizontal();
-        System.out.println(v.getDirection() + " " + v.getLength());
     }
 
     private void addBricks(int rows, int cols)
@@ -68,11 +65,6 @@ public class Jail extends World
         scoreCounter.add(value);
     }
 
-    public Paddle getPaddle()
-    {
-        return paddle;
-    }
-    
     public void gameOver()
     {
         addObject(new ScoreBoard(scoreCounter.getValue()), getWidth()/2, getHeight()/2);
