@@ -17,7 +17,7 @@ public class Jail extends World
         new Brick(Color.YELLOW, 1), new Brick(Color.YELLOW, 1)
     };
     private static final int BRICK_ROWS = BRICK_COLUMN.length;
-    private static final int BRICK_COLS = 14;
+    private static final int BRICK_COLS = 12;
 
     private static final int BALL_MAX_SPEED = 2;
     
@@ -59,7 +59,10 @@ public class Jail extends World
         {
             for (int col = 0; col < cols; col++)
             {
-                addObject(new Brick(BRICK_COLUMN[row]), col * colWidth, row * rowHeight);
+                // shift down and right 1/2 brick, so we don't cut off half the top row and left col
+                int width = (int) ((0.5 + col) * colWidth);
+                int height = (int) ((0.5 + row) * rowHeight);
+                addObject(new Brick(BRICK_COLUMN[row]), width, height);
             }
         }
     }

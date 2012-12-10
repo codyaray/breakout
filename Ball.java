@@ -10,11 +10,15 @@ import java.util.List;
  */
 public class Ball extends Actor
 {
+    private static final int ACCELERATION = 5000;
     private static final int DIAMETER = 15;
 
     // "velocity": change in x and y each tick
     private int dx;
     private int dy;
+
+    // how many simulation ticks have occurred
+    private int currentTick = 0;
 
     public Ball(int dx, int dy)
     {
@@ -33,6 +37,7 @@ public class Ball extends Actor
     public void act()
     {
         move();
+        speedUp();
         bounceOffPaddle();
         breakBrickAndBounce();
         checkBricksLeft();
@@ -42,7 +47,7 @@ public class Ball extends Actor
      * The ball moves at a constant speed, changing directions when
      * it hits a wall or passes the paddle.
      */
-    public void move()
+    private void move()
     {
         // hit top
         if (getY() == 0)
@@ -67,6 +72,16 @@ public class Ball extends Actor
         }
 
         setLocation(getX()+dx, getY()+dy);
+    }
+
+    private void speedUp()
+    {
+        if (currentTick % ACCELERATION == 0)
+        {
+            dx = (int) Math.signum(dx) * (Math.abs(dx) + 1);
+            dy = (int) Math.signum(dx) * (Math.abs(dy) + 1);
+        }
+        currentTick++;
     }
 
     /**
